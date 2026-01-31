@@ -26,9 +26,10 @@ Route::post('/cart/update', [App\Http\Controllers\CartController::class, 'update
 Route::post('/cart/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart/clear', [App\Http\Controllers\CartController::class, 'clear'])->name('cart.clear');
 
-Route::get('/checkout', function () {
-    return view('checkout');
-})->name('checkout');
+// Checkout Routes
+Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout/process', [App\Http\Controllers\CheckoutController::class, 'process'])->name('checkout.process');
+Route::get('/checkout/success/{orderId}', [App\Http\Controllers\CheckoutController::class, 'success'])->name('checkout.success');
 
 // Authentication Routes
 Route::get('/login', [App\Http\Controllers\AuthController::class, 'showLogin'])->name('login')->middleware('guest');
