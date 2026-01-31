@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>@yield('title', 'Electro - HTML Ecommerce Template')</title>
+		<title>@yield('title', 'Electro Master - Your Electronics Store')</title>
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -66,5 +66,21 @@
 		<script src="{{ asset('js/main.js') }}"></script>
 
         @stack('scripts')
+
+        <script>
+            function removeFromCart(productId) {
+                $.ajax({
+                    url: '{{ route('cart.remove') }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: productId
+                    },
+                    success: function(response) {
+                        location.reload();
+                    }
+                });
+            }
+        </script>
 	</body>
 </html>
