@@ -10,7 +10,27 @@
                 </ul>
                 <ul class="header-links pull-right">
                     <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                    @auth
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <i class="fa fa-user-o"></i>
+                                {{ Auth::user()->name }}
+                            </a>
+                            <ul class="main-nav nav navbar-nav">
+                                <li><a href="{{ route('profile') }}">My Profile</a></li>
+                                <li><a href="{{ route('profile.orders') }}">My Orders</a></li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-link" style="padding: 5px 15px; color: #333;">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @else
+                        <li><a href="{{ route('login') }}"><i class="fa fa-user-o"></i> Login</a></li>
+                        <li><a href="{{ route('register') }}">Register</a></li>
+                    @endauth
                 </ul>
             </div>
         </div>

@@ -29,3 +29,20 @@ Route::get('/cart/clear', [App\Http\Controllers\CartController::class, 'clear'])
 Route::get('/checkout', function () {
     return view('checkout');
 })->name('checkout');
+
+// Authentication Routes
+Route::get('/login', [App\Http\Controllers\AuthController::class, 'showLogin'])->name('login')->middleware('guest');
+Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->middleware('guest');
+
+Route::get('/register', [App\Http\Controllers\AuthController::class, 'showRegister'])->name('register')->middleware('guest');
+Route::post('/register', [App\Http\Controllers\AuthController::class, 'register'])->middleware('guest');
+
+Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
+// Profile Routes (protected)
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::get('/profile/orders', [App\Http\Controllers\ProfileController::class, 'orders'])->name('profile.orders');
+});
