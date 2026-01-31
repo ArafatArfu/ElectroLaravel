@@ -22,6 +22,7 @@
                         <li><a href="#">Cameras</a></li>
                         <li><a href="#">Accessories</a></li>
                     @endif
+                    <li class="{{ request()->routeIs('contact') ? 'active' : '' }}"><a href="{{ route('contact') }}">Contact</a></li>
                 </ul>
                 <!-- /NAV -->
             </div>
